@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        /* Cài đặt font chữ và màu nền cơ bản */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f7ff; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden; 
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- MÀN HÌNH 0: CHÀO MỪNG --- */
+        #welcome-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100; 
+        }
+
+        #open-mail-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(255, 77, 77, 0.4);
+            animation: bounce 2s infinite; 
+        }
+
+        #open-mail-btn:hover {
+            transform: scale(1.1);
+            background-color: #ff3333;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        /* --- MÀN HÌNH 1: VIDEO VÀ NÚT NHẤN --- */
+        #intro-screen {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 90%;
+            z-index: 10;
+        }
+
+        #intro-screen h1 {
+            color: #0088cc;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            margin-bottom: 25px;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 3px solid #0088cc;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        #start-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(255, 77, 77, 0.3);
+        }
+
+        #start-btn:hover {
+            transform: scale(1.05);
+            background-color: #ff3333;
+        }
+
+        /* --- MÀN HÌNH 2: LỊCH TRÌNH --- */
+        #schedule-screen {
+            background-image: url('https://wallpapers.com/images/hd/doraemon-background-k36q8zoxwzox5b77.jpg'); 
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0; left: 0;
+        }
+
+        .schedule-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            border: 4px dashed #0088cc;
+            box-shadow: 0 0 20px rgba(0, 136, 204, 0.6);
+            max-width: 550px; /* Mở rộng thêm một chút để chứa chữ */
+            width: 90%;
+            max-height: 90vh; /* Thêm thanh cuộn nếu nội dung quá dài */
+            overflow-y: auto;
+        }
+
+        .schedule-content h2 {
+            text-align: center;
+            color: #ff4d4d;
+            margin-top: 0;
+            font-size: 26px;
+        }
+
+        .schedule-content ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .schedule-content li {
+            padding: 15px 0;
+            border-bottom: 1px dashed #ccc;
+            font-size: 17px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .schedule-content li:last-child {
+            border-bottom: none;
+        }
+
+        .time {
+            font-weight: bold;
+            color: #0088cc;
+            display: inline-block;
+            width: 95px;
+            vertical-align: top; /* Căn chỉnh thời gian lên đầu dòng */
+        }
+        
+        .details {
+            display: inline-block;
+            width: calc(100% - 100px);
+        }
+
+        .location {
+            font-size: 15px;
+            color: #555;
+            font-style: italic;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .menu-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: white;
+            background-color: #0088cc;
+            padding: 5px 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .menu-link:hover {
+            background-color: #006699;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- MÀN HÌNH 0 -->
+    <div id="welcome-screen">
+        <button id="open-mail-btn">Bạn có 1 hộp thư mới 💌 Bấm vào đây nè!</button>
+    </div>
+
+    <!-- MÀN HÌNH 1 -->
+    <div id="intro-screen" class="hidden">
+        <div class="video-container">
+            <video id="my-video" src="0505.mp4" loop playsinline style="pointer-events: none;"></video>
+        </div>
+        <button id="start-btn">nhấn dô đưi để tiếp tục 💌</button>
+    </div>
+
+    <!-- MÀN HÌNH 2 -->
+    <div id="schedule-screen" class="hidden">
+        <div class="schedule-content">
+            <h2>Lịch Trình Hôm Nay</h2>
+            <ul>
+                <li>
+                    <span class="time">08:00 AM</span>
+                    <div class="details">Anh đi đón em, chúng ta sẽ đi tham quan <strong>Nhà tù Hỏa Lò</strong>.</div>
+                </li>
+                <li>
+                    <span class="time">10:00 AM</span>
+                    <div class="details">
+                        Nghỉ ngơi và khui quà nhỏ nhỏ tại <strong>Cộng Cà Phê</strong> 🎁☕
+                        <span class="location">📍 68 P. Quán Sứ, Cửa Nam, Hà Nội</span>
+                        <img src="91a203ef-9525-4b92-b4e9-6c1c0b09f09b.jpg" alt="Menu Cộng" style="max-width:100%; margin-top:8px;">
+                    </div>
+                </li>
+                <li>
+                    <span class="time">11:00 AM</span>
+                    <div class="details">
+                        Trời nóng nên mình đi ăn đồ mát mẻ tí, anh nghĩ <strong>Phở cuốn Hương Mai</strong> là oke nhất!
+                        <span class="location">📍 52 Phố Huế</span>
+                        <img src="3fbf0fc6-a5fa-44f2-b451-b75f7c6d17f1.jpg" alt="Menu Phở Cuốn" style="max-width:100%; margin-top:8px;">
+                    </div>
+                </li>
+                <li>
+                    <span class="time">01:30 PM</span>
+                    <div class="details">
+                        Buổi chiều mình đi tránh nóng, dạo vòng quanh <strong>Aeon Mall Hà Đông</strong> để trải nghiệm gian hàng mới nhé.
+                    </div>
+                </li>
+                <li>
+                    <span class="time">02:50 PM</span>
+                    <div class="details">
+                        Cùng nhau đi xem phim <strong>SHIN - Cậu Bé Bút Chì</strong>! 🎬🍿
+                        <span class="location">📍 Lotte Cinema Hà Đông (Đã check giờ chiếu)</span>
+                        <img src="4ac53dc6-51b8-4d87-945e-c5b1dbe0e060.jpg                        git init" alt="Lotte Cinema" style="max-width:100%; margin-top:8px;">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const introScreen = document.getElementById('intro-screen');
+        const scheduleScreen = document.getElementById('schedule-screen');
+        
+        const openMailBtn = document.getElementById('open-mail-btn');
+        const startBtn = document.getElementById('start-btn');
+        const myVideo = document.getElementById('my-video');
+
+        openMailBtn.addEventListener('click', function() {
+            welcomeScreen.classList.add('hidden'); 
+            introScreen.classList.remove('hidden'); 
+            myVideo.play(); 
+        });
+
+        startBtn.addEventListener('click', function() {
+            introScreen.classList.add('hidden'); 
+            scheduleScreen.classList.remove('hidden'); 
+            myVideo.pause(); 
+        });
+    </script>
+
+</body>
+</html>
